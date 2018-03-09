@@ -15,22 +15,22 @@
         android:text=""
         android:textSize="40sp" />
 
-    <TextView
-        android:id="@+id/preview"
+    <Button
+        android:id="@+id/reset"
         android:layout_width="wrap_content"
-        android:layout_height="40dp"
-        android:layout_alignParentRight="true"
+        android:layout_height="50dp"
+        android:layout_alignRight="@id/button_layout4"
         android:layout_below="@+id/screen"
         android:gravity="center"
-        android:text="Preview"
-        android:textSize="20sp" />
+        android:text="Clear"
+        android:onClick="clearClick"
+        android:textSize="15sp" />
 
     <LinearLayout
         android:id="@+id/button_layout1"
         android:layout_width="wrap_content"
         android:layout_height="match_parent"
-        android:layout_below="@+id/preview"
-        android:layout_marginTop="35dp"
+        android:layout_below="@+id/reset"
         android:layout_marginLeft="10dp"
         android:orientation="vertical">
 
@@ -80,8 +80,7 @@
         android:id="@+id/button_layout2"
         android:layout_width="wrap_content"
         android:layout_height="match_parent"
-        android:layout_below="@+id/preview"
-        android:layout_marginTop="35dp"
+        android:layout_below="@+id/reset"
         android:orientation="vertical"
         android:layout_toRightOf="@+id/button_layout1">
 
@@ -131,8 +130,7 @@
         android:id="@+id/button_layout3"
         android:layout_width="wrap_content"
         android:layout_height="match_parent"
-        android:layout_below="@+id/preview"
-        android:layout_marginTop="35dp"
+        android:layout_below="@+id/reset"
         android:orientation="vertical"
         android:layout_toRightOf="@+id/button_layout2">
 
@@ -182,8 +180,7 @@
         android:id="@+id/button_layout4"
         android:layout_width="wrap_content"
         android:layout_height="match_parent"
-        android:layout_below="@+id/preview"
-        android:layout_marginTop="35dp"
+        android:layout_below="@+id/reset"
         android:layout_toRightOf="@+id/button_layout3"
         android:orientation="vertical">
 
