@@ -39,6 +39,7 @@
             android:layout_width="wrap_content"
             android:layout_height="100dp"
             android:layout_weight="1"
+            android:backgroundTint="?attr/colorButtonNormal"
             android:text="√"
             android:textSize="25sp" />
 
@@ -190,6 +191,8 @@
             android:layout_height="75dp"
             android:layout_weight="1"
             android:text="/"
+            android:backgroundTint="#e47a00"
+
             android:textSize="20sp" />
 
         <Button
@@ -198,6 +201,7 @@
             android:layout_height="75dp"
             android:layout_weight="1"
             android:text="*"
+            android:backgroundTint="#e47a00"
             android:textSize="20sp" />
 
         <Button
@@ -207,6 +211,7 @@
             android:layout_weight="1"
             android:baselineAligned="false"
             android:text="-"
+            android:backgroundTint="#e47a00"
             android:textSize="35sp" />
 
         <Button
@@ -215,6 +220,7 @@
             android:layout_height="75dp"
             android:layout_weight="1"
             android:text="+"
+            android:backgroundTint="#e47a00"
             android:textSize="20sp" />
 
         <Button

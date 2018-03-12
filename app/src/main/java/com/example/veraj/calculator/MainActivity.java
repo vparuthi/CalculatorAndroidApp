@@ -1,5 +1,8 @@
 package com.example.veraj.calculator;
 
+import android.content.res.ColorStateList;
+import android.graphics.Color;
+import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -24,6 +27,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     int isecond_value = 0;
     float power_value = 10;
     float decimal_value = 1;
+    boolean multipress_count = false;
     boolean second_value_check = true;
     int operation_type = 0; // used to tell what operation is being conducted, 0 is simply when a number is pressed
     boolean check = true; // to make sure only numbered button presses enter the number else if and not operation symbols
@@ -52,39 +56,79 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         check = true;
         boolean decimal_reset = false; //this is set to true once the decimal button is clicked and used to reset the power_vale and decimal_value
         TextView screen = (TextView)findViewById(R.id.screen);
-        Button button = (Button)view;
+        final Button button = (Button)view;
         String screen_text = "";
         double double_value = 0;
-        String buttonId = "b43";
+        String buttonId = getResources().getResourceEntryName(view.getId());
+
 
         String button_text = button.getText().toString();
         Log.i(TAG, "Button pressed:" + button_text);
 
-        if (Objects.equals(getResources().getResourceEntryName(view.getId()), "b43")) {
+        if (Objects.equals(buttonId, "b43")) {
             final Animation myAnim = AnimationUtils.loadAnimation(this, R.anim.bounce);
             MyBounceInterpolator interpolator = new MyBounceInterpolator(0.1, 20);
             myAnim.setInterpolator(interpolator);
             button.startAnimation(myAnim);
         }
+        else if((Objects.equals(buttonId, "b03"))||(Objects.equals(buttonId, "b13"))||(Objects.equals(buttonId, "b23"))||(Objects.equals(buttonId, "b33"))){
+
+        }
+        else{
+            view.setBackgroundTintList(ColorStateList.valueOf(0xFF80CBC4));
+            final Handler handler = new Handler();
+            handler.postDelayed(new Runnable() {
+                @Override
+                public void run() {
+                    button.setBackgroundTintList(ColorStateList.valueOf(0xff5a595b));
+                }
+            },100);
+        }
+
+        if (!multipress_count){
+            switch (button_text){
+                case "*":
+                    screen.setText(screen_text);
+                    second_value_check = !second_value_check;
+                    operation_type = 1;
+                    check = false;
+                    decimal_reset = true;
+                    second_value = 0;
+                    isecond_value = 0;
+                    break;
+                case "/":
+                    screen.setText(screen_text);
+                    second_value_check = !second_value_check;
+                    operation_type = 2;
+                    check = false;
+                    decimal_reset = true;
+                    second_value = 0;
+                    isecond_value = 0;
+                    break;
+                case "+":
+                    screen.setText(screen_text);
+                    second_value_check = !second_value_check;
+                    operation_type = 3;
+                    check = false;
+                    decimal_reset = true;
+                    second_value = 0;
+                    isecond_value = 0;
+                    break;
+                case "-":
+                    screen.setText(screen_text);
+                    second_value_check = !second_value_check;
+                    operation_type = 4;
+                    check = false;
+                    decimal_reset = true;
+                    second_value = 0;
+                    isecond_value = 0;
+                    break;
+            }
+            multipress_count = true;
+        }
+
         switch (button_text) {
-            case "*":
-                screen.setText(screen_text);
-                second_value_check = !second_value_check;
-                operation_type = 1;
-                check = false;
-                decimal_reset = true;
-                second_value = 0;
-                isecond_value = 0;
-                break;
-            case "/":
-                screen.setText(screen_text);
-                second_value_check = !second_value_check;
-                operation_type = 2;
-                check = false;
-                decimal_reset = true;
-                second_value = 0;
-                isecond_value = 0;
-                break;
+
             case "=":
                 screen.setText(screen_text);
 
@@ -122,24 +166,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 check = false;
                 decimal_reset = true;
                 break;
-            case "+":
-                screen.setText(screen_text);
-                second_value_check = !second_value_check;
-                operation_type = 3;
-                check = false;
-                decimal_reset = true;
-                second_value = 0;
-                isecond_value = 0;
-                break;
-            case "-":
-                screen.setText(screen_text);
-                second_value_check = !second_value_check;
-                operation_type = 4;
-                check = false;
-                decimal_reset = true;
-                second_value = 0;
-                isecond_value = 0;
-                break;
             case "%":
                 screen.setText(screen_text);
                 second_value_check = !second_value_check;
@@ -152,7 +178,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 isecond_value = 0;
                 break;
             case ".":
-                if (first_value ==0  || (second_value ==0 && second_value_check == false)){
+                if (first_value ==0  || (second_value ==0 && !second_value_check)){
                     screen_text = "0.";
                     screen.setText(screen_text);
                 }
@@ -306,6 +332,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             }
         }
         equals_count = false;
+        multipress_count = false;
     }
 
 
@@ -317,26 +344,12 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     }
 
 
-    private int convertToInt (float fnumber){
-         return Math.round(fnumber);
-    }
-
-    private String deleteScreenUpdate (float fnumber, int inumber, String screen_text, String after_delete){
-
-        if (checkInt(fnumber)){
-            inumber = Integer.parseInt(new String(after_delete));
-            screen_text = Integer.toString(inumber);
-            first_value = inumber;
-        }
-        else {
-            first_value = Float.parseFloat(new String(after_delete));
-            screen_text = Float.toString(first_value);
-        }
-        return screen_text;
-
-    }
-
     public void clearClick(View view) {
+        final Animation myAnim = AnimationUtils.loadAnimation(this, R.anim.bounce);
+        MyBounceInterpolator interpolator = new MyBounceInterpolator(0.1, 20);
+        myAnim.setInterpolator(interpolator);
+        view.startAnimation(myAnim);
+
         first_value = 0;
         second_value = 0;
         ifirst_value = 0;
@@ -344,6 +357,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         power_value = 10;
         decimal_value = 1;
         second_value_check = true;
+        multipress_count = false;
         operation_type = 0; // used to tell what operation is being conducted, 0 is simply when a number is pressed
         check = true; // to make sure only numbered button presses enter the number else if and not operation symbols
         equals_count = false; //when the equals button is clicked more than once to repeat the operation
